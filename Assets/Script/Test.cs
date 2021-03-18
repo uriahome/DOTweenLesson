@@ -17,6 +17,7 @@ public class Test : MonoBehaviour
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetEase(Ease.InOutQuart).SetLoops(10,LoopType.Restart);//10回繰り返す(最初の状態に戻る)
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetEase(Ease.InOutQuart).SetLoops(10,LoopType.Incremental);//10回繰り返す(その場で続きを開始する(加算する))
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetEase(Ease.InOutQuart).SetLoops(-1,LoopType.Yoyo);//-1で無限に繰り返す
+        transform.DOLocalMove(new Vector3(10,0,0),1f).OnComplete(CompleteFunction);//トゥイーン完了時にCompleteFunction()を呼び出す
     }
 
     // Update is called once per frame
@@ -24,7 +25,8 @@ public class Test : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)){
             Debug.Log("Space!!");
-            StartCoroutine("StartMove");
+            //StartCoroutine("StartMove");
+            StartCoroutine("Rewind");
         }
 
     }
@@ -43,5 +45,20 @@ public class Test : MonoBehaviour
         transform.DORestart();//最初からやり直す
         //完了したトゥイーンはやり直せないため、この例だと1回のみやり直す
 
+    }
+
+    IEnumerator Rewind(){
+        transform.DOLocalMoveX(10f,1f);
+        yield return new WaitForSeconds(0.5f);
+
+        transform.DORewind();//最初の状態に戻ってからポーズする
+        
+        yield return new WaitForSeconds(0.5f);
+
+        transform.DOPlay();//再開する
+
+    }
+    private void CompleteFunction(){
+        Debug.Log("Complete!!!!");
     }
 }
