@@ -28,7 +28,8 @@ public class Test : MonoBehaviour
             //StartCoroutine("StartMove");
             //StartCoroutine("Rewind");
             //StartCoroutine("StartMove2");
-            StartCoroutine("RelativeMove");
+            //StartCoroutine("RelativeMove");
+            StartCoroutine("SequenceMove");
 
         }
 
@@ -71,6 +72,17 @@ public class Test : MonoBehaviour
 
         transform.DOPlay();//再開する
 
+    }
+
+    IEnumerator SequenceMove()
+    {//一つのグループにまとめて順番に処理する
+        DOTween.Sequence()
+        .Append(transform.DOLocalMoveX(10f,1f))
+        .Append(transform.DOLocalMoveY(1f,1f))
+        .Append(transform.DOLocalMoveX(5f,1f))
+        .Append(transform.DOLocalMoveY(3.5f,0.3f));
+
+        yield return null;
     }
     private void CompleteFunction(){
         Debug.Log("Complete!!!!");
