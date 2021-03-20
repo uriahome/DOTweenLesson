@@ -29,7 +29,8 @@ public class Test : MonoBehaviour
             //StartCoroutine("Rewind");
             //StartCoroutine("StartMove2");
             //StartCoroutine("RelativeMove");
-            StartCoroutine("SequenceMove");
+            //StartCoroutine("SequenceMove");
+            StartCoroutine("PunchMove");
 
         }
 
@@ -49,6 +50,13 @@ public class Test : MonoBehaviour
         transform.DORestart();//最初からやり直す
         //完了したトゥイーンはやり直せないため、この例だと1回のみやり直す
 
+    }
+
+    IEnumerator PunchMove()
+    {
+        //移動場所/時間/振動数/振動する範囲
+        transform.DOPunchPosition(new Vector3(5f,0,0),2f,5,1f);
+        yield return null;
     }
 
     IEnumerator StartMove2(){
