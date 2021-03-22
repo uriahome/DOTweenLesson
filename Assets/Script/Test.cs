@@ -56,6 +56,7 @@ public class Test : MonoBehaviour
     {
         //移動場所/時間/振動数/振動する範囲
         transform.DOPunchPosition(new Vector3(5f,0,0),2f,5,1f);
+        transform.DOPunchScale(Vector3.one*2f,2f,5,1f);
         yield return null;
     }
 
