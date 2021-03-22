@@ -30,10 +30,24 @@ public class Test : MonoBehaviour
             //StartCoroutine("StartMove2");
             //StartCoroutine("RelativeMove");
             //StartCoroutine("SequenceMove");
-            StartCoroutine("PunchMove");
-
+            //StartCoroutine("PunchMove");
+            StartCoroutine("DOPathMove");
         }
 
+    }
+
+    IEnumerator DOPathMove()
+    {
+        transform.DOLocalPath(
+            new[]
+             {
+                 new Vector3(-3f,-2f,0f),
+                 new Vector3(3f,-2f,0f),
+                 new Vector3(0f,5f,0f),
+             },
+             3f,PathType.CatmullRom).SetOptions(true);//SetOptions(true)とすることで開始した座標に戻る
+
+        yield return null;
     }
 
     IEnumerator StartMove(){
