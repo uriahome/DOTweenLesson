@@ -31,9 +31,22 @@ public class Test : MonoBehaviour
             //StartCoroutine("RelativeMove");
             //StartCoroutine("SequenceMove");
             //StartCoroutine("PunchMove");
-            StartCoroutine("DOPathMove");
+            //StartCoroutine("DOPathMove");
+            StartCoroutine("Back");
         }
 
+    }
+
+    IEnumerator Back()
+    {
+        yield return transform.DOLocalMove(new Vector3(10f,0,0),1.5f).WaitForCompletion();
+
+        yield return transform.DOLocalMove(new Vector3(0f,0,0),1.5f).WaitForCompletion();
+
+        DOTween.Sequence().Append(transform.DOLocalMoveX(10f,1f))
+        .Append(transform.DOLocalMoveY(1f,1f))
+        .Append(transform.DOLocalMoveX(5f,1f))
+        .Append(transform.DOScale(3.5f,0.3f));
     }
 
     IEnumerator DOPathMove()
