@@ -46,7 +46,8 @@ public class Test : MonoBehaviour
         DOTween.Sequence().Append(transform.DOLocalMoveX(10f,1f))
         .Append(transform.DOLocalMoveY(1f,1f))
         .Append(transform.DOLocalMoveX(5f,1f))
-        .Append(transform.DOScale(3.5f,0.3f));
+        .Append(transform.DOScale(3.5f,0.3f))
+        .Insert(0.1f,transform.DOScale(1f,2f));
     }
 
     IEnumerator DOPathMove()
