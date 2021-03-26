@@ -32,9 +32,17 @@ public class Test : MonoBehaviour
             //StartCoroutine("SequenceMove");
             //StartCoroutine("PunchMove");
             //StartCoroutine("DOPathMove");
-            StartCoroutine("Back");
+            //StartCoroutine("Back");
+            StartCoroutine("Jump");
         }
 
+    }
+
+    IEnumerator Jump()
+    {
+        //transform.DOLocalJump(new Vector3(10f,0,0),1f,3,1f).SetEase(Ease.Linear);
+        transform.DOLocalJump(new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z),2f,3,1f).SetEase(Ease.Linear);//その場で3回跳ねる
+        yield return null;
     }
 
     IEnumerator Back()
