@@ -12,7 +12,7 @@ public class TextMove : MonoBehaviour
     void Start()
     {
         TargetText = gameObject.GetComponent<Text>();
-        TargetText.DOText("1234567890",1f, scrambleMode :ScrambleMode.All);
+        TargetText.DOText("<color=blue>1234567890</color>",1f, scrambleMode :ScrambleMode.All).SetOptions(true);//SetOptionsをtrueにするとリッチテキストを適用できる
     }
 
     // Update is called once per frame
