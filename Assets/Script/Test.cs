@@ -33,9 +33,16 @@ public class Test : MonoBehaviour
             //StartCoroutine("PunchMove");
             //StartCoroutine("DOPathMove");
             //StartCoroutine("Back");
-            StartCoroutine("Jump");
+            //StartCoroutine("Jump");
+            StartCoroutine("Move");
         }
 
+    }
+
+    IEnumerator Move()
+    {
+        transform.DOLocalMove(new Vector3(10f,0,0),1f).From(new Vector3(0f,0,0)).SetDelay(0.1f);//Fromで開始地点を設定することができる//setdelayは待機時間
+        yield return null;
     }
 
     IEnumerator Jump()
