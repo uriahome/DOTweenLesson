@@ -34,10 +34,20 @@ public class Test : MonoBehaviour
             //StartCoroutine("DOPathMove");
             //StartCoroutine("Back");
             //StartCoroutine("Jump");
-            StartCoroutine("Move");
+            //StartCoroutine("Move");
+            StartCoroutine("Virtual");
         }
 
     }
+
+    IEnumerator Virtual()
+    {
+        var tween = DOVirtual.DelayedCall(0.2f,
+        () => gameObject.SetActive(false));
+        yield return new WaitForSeconds(0.1f);
+        tween.Kill();//非アクティブにするしょりを先に止めている
+    }
+
 
     IEnumerator Move()
     {
