@@ -6,6 +6,7 @@ using DG.Tweening;//DOTweenを使用するため
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private AnimationCurve CustomEasing;
     void Start()
     {
         //Debug.Log("test");
@@ -35,9 +36,16 @@ public class Test : MonoBehaviour
             //StartCoroutine("Back");
             //StartCoroutine("Jump");
             //StartCoroutine("Move");
-            StartCoroutine("Virtual");
+            //StartCoroutine("Virtual");
+            StartCoroutine("CustomMove");
         }
 
+    }
+
+    IEnumerator CustomMove()
+    {
+        transform.DOLocalMove(new Vector3(10f,0,0),2f).SetEase(CustomEasing);
+        yield return null;
     }
 
     IEnumerator Virtual()

@@ -151,6 +151,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb8a3dfbf60243498546c224c71253a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CustomEasing:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -9.214081
+      value: 0.020248413
+      inSlope: 0.06745963
+      outSlope: 0.06745963
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.36836863
+      value: 0.6666769
+      inSlope: 0.29758874
+      outSlope: 0.29758874
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5277178
+      outSlope: 0.5277178
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!212 &100115823
 SpriteRenderer:
   m_ObjectHideFlags: 0
