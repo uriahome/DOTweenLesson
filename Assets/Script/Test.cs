@@ -37,11 +37,19 @@ public class Test : MonoBehaviour
             //StartCoroutine("Jump");
             //StartCoroutine("Move");
             //StartCoroutine("Virtual");
-            StartCoroutine("CustomMove");
+            //StartCoroutine("CustomMove");
+            RoundTrip_Right();
         }
 
     }
 
+    public void RoundTrip_Right(){
+        transform.DOLocalMove(new Vector3(10f,0,0),1f).OnComplete(RoundTrip_Left);
+
+    }
+    public void RoundTrip_Left(){
+        transform.DOLocalMove(new Vector3(-10f,0,0),1f).OnComplete(RoundTrip_Right);
+    }
     IEnumerator CustomMove()
     {
         transform.DOLocalMove(new Vector3(10f,0,0),2f).SetEase(CustomEasing);
