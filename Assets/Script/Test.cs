@@ -38,9 +38,22 @@ public class Test : MonoBehaviour
             //StartCoroutine("Move");
             //StartCoroutine("Virtual");
             //StartCoroutine("CustomMove");
-            RoundTrip_Right();
+            //RoundTrip_Right();
+            StartCoroutine("IDStart");
         }
 
+    }
+
+    IEnumerator IDStart(){
+        transform.DOLocalMoveX(10f,10f);
+        transform.DOScale(5f,3f);
+        var tween = transform.DOLocalRotateQuaternion(
+            Quaternion.AngleAxis(540, Vector3.up), 0.5f)
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Incremental);
+        yield return new WaitForSeconds(1f);
+        
+        tween.Kill();
     }
 
     public void RoundTrip_Right(){
