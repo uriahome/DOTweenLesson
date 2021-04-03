@@ -46,14 +46,16 @@ public class Test : MonoBehaviour
 
     IEnumerator IDStart(){
         transform.DOLocalMoveX(10f,10f);
-        transform.DOScale(5f,3f);
-        var tween = transform.DOLocalRotateQuaternion(
+        var tween1 = transform.DOScale(5f,3f);
+        var tween2 = transform.DOLocalRotateQuaternion(
             Quaternion.AngleAxis(540, Vector3.up), 0.5f)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Incremental);
         yield return new WaitForSeconds(1f);
         
-        tween.Kill();
+        tween1.Kill();
+        yield return new WaitForSeconds(1f);
+        tween2.Kill();
     }
 
     public void RoundTrip_Right(){
