@@ -7,8 +7,10 @@ using DG.Tweening;
 public class ButtonMove : MonoBehaviour
 {
     // Start is called before the first frame update
+    public bool IsClick;
     void Start()
     {
+        IsClick = false;
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
@@ -24,6 +26,12 @@ public class ButtonMove : MonoBehaviour
         //DOTween.Sequence().Append(transform.DOScale(1.3f,0.5f).SetEase(Ease.OutElastic))
         //.Append(transform.DOScale(0.8f,0.5f).SetEase(Ease.OutElastic));
         //transform.DOScale(1.2f,0.5f).SetEase(Ease.OutElastic).SetLoops(-1,LoopType.Yoyo);
-        transform.DOScale(1.2f,0.5f).SetEase(Ease.OutElastic).SetLoops(-1,LoopType.Restart);
+        //transform.DOScale(1.2f,0.5f).SetEase(Ease.OutElastic).SetLoops(-1,LoopType.Restart);
+        if(IsClick){
+            transform.DOScale(1.0f,0.5f).SetEase(Ease.OutElastic);//縮小
+        }else{
+            transform.DOScale(1.4f,0.5f).SetEase(Ease.OutElastic);//巨大化
+        }
+        IsClick = !IsClick;//bool反転ですっきりさせた
     }
 }
