@@ -29,8 +29,10 @@ public class ButtonMove : MonoBehaviour
         //transform.DOScale(1.2f,0.5f).SetEase(Ease.OutElastic).SetLoops(-1,LoopType.Restart);
         if(IsClick){
             transform.DOScale(1.0f,0.5f).SetEase(Ease.OutElastic);//縮小
+            GetComponentInChildren<Text>().text = "小さい";
         }else{
             transform.DOScale(1.4f,0.5f).SetEase(Ease.OutElastic);//巨大化
+            GetComponentInChildren<Text>().text = "大きい";
         }
         IsClick = !IsClick;//bool反転ですっきりさせた
     }
