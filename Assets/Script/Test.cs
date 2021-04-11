@@ -7,6 +7,7 @@ public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private AnimationCurve CustomEasing;
+    [SerializeField] private GameObject ShotObj;
     void Start()
     {
         //Debug.Log("test");
@@ -39,9 +40,15 @@ public class Test : MonoBehaviour
             //StartCoroutine("Virtual");
             //StartCoroutine("CustomMove");
             //RoundTrip_Right();
-            StartCoroutine("IDStart");
+            //StartCoroutine("IDStart");
+            Summon();
         }
 
+    }
+
+    void Summon(){
+        GameObject Slime = Instantiate(ShotObj) as GameObject;
+        Slime.transform.position = new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z);
     }
 
     IEnumerator IDStart(){
