@@ -8,6 +8,8 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private AnimationCurve CustomEasing;
     [SerializeField] private GameObject ShotObj;
+
+    [SerializeField] private Vector3 ClickPos;
     void Start()
     {
         //Debug.Log("test");
@@ -42,6 +44,12 @@ public class Test : MonoBehaviour
             //RoundTrip_Right();
             //StartCoroutine("IDStart");
             Summon();
+        }
+
+        if(Input.GetMouseButtonDown(0)){//クリックした座標に移動する
+            ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//スクリーンの座標からワールド座標へ変換する
+            ClickPos.z = 0;//z座標を0にする(カメラは―10なので)
+            transform.DOLocalMove(ClickPos,1f);
         }
 
     }
