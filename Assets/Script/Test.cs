@@ -10,6 +10,8 @@ public class Test : MonoBehaviour
     [SerializeField] private GameObject ShotObj;
 
     [SerializeField] private Vector3 ClickPos;
+
+    Tweener tweener;//DOTweenの情報を入れる
     void Start()
     {
         //Debug.Log("test");
@@ -49,7 +51,13 @@ public class Test : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){//クリックした座標に移動する
             ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//スクリーンの座標からワールド座標へ変換する
             ClickPos.z = 0;//z座標を0にする(カメラは―10なので)
-            transform.DOLocalMove(ClickPos,1f);
+            tweener = transform.DOLocalMove(ClickPos,1f);
+        }
+        if(Input.GetKeyDown(KeyCode.A)){
+            tweener.Pause();
+        }
+        if(Input.GetKeyDown(KeyCode.Z)){
+            tweener.Play();
         }
 
     }
