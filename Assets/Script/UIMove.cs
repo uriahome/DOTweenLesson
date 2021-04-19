@@ -19,10 +19,11 @@ public class UIMove : MonoBehaviour
         target = gameObject.GetComponent<Image>();
         //target.DOColor(new Color(1f, 0, 0), 1.5f);
         //target.DOFade(0.2f,1.5f);
-        target.DOFillAmount(1f,2f).SetEase(Ease.InQuart);
-        target.DOBlendableColor(new Color(0f,1f,1f),2f);
-        target.DOBlendableColor(new Color(1f,1f,0f),1f).SetDelay(3f);
-        target.DOBlendableColor(new Color(1f,0f,1f),1f).SetDelay(4f);
+         DOTween.Sequence().Append(target.DOFillAmount(1f,2f).SetEase(Ease.InQuart))
+        .Append(target.DOFillAmount(-1f,2f).SetEase(Ease.InQuart));
+        //target.DOBlendableColor(new Color(0f,1f,1f),2f);
+        //target.DOBlendableColor(new Color(1f,1f,0f),1f).SetDelay(3f);
+        //target.DOBlendableColor(new Color(1f,0f,1f),1f).SetDelay(4f);
 
     }
 
