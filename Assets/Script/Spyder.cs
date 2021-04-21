@@ -8,11 +8,13 @@ public class Spyder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DOTween.Sequence().Append(transform.DOLocalMoveX(5f,1f))
-        .Append(transform.DOLocalMoveY(2f,1f))
-        .Join(transform.DOScale(2.5f,0.3f))
-        .Append(transform.DOLocalMoveX(0f,1f))
-        .Join(transform.DOScale(1f,0.3f));
+
+        var Seq = DOTween.Sequence();
+        Seq.Append(transform.DOLocalMoveX(5f,1f));
+        Seq.Append(transform.DOLocalMoveY(2f,1f));
+        Seq.Join(transform.DOScale(2.5f,0.3f));
+        Seq.Append(transform.DOLocalMoveX(0f,1f));
+        Seq.Join(transform.DOScale(1f,0.3f));
     }
 
     // Update is called once per frame
