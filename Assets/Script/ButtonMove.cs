@@ -9,11 +9,17 @@ public class ButtonMove : MonoBehaviour
     // Start is called before the first frame update
     public bool IsClick;
     Button button;
+
+    string CheckChar = "a";
+    public string TestChar = "a";
     void Start()
     {
         IsClick = false;
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
+        if(TestChar.Contains(CheckChar)){
+            Debug.Log("aaa");
+        }
     }
 
     // Update is called once per frame
