@@ -47,6 +47,9 @@ public class Test : MonoBehaviour
             //StartCoroutine("IDStart");
             Summon();
         }
+        if(Input.GetKeyDown(KeyCode.Z)){
+            StartCoroutine("DelayMove");
+        }
 
         if(Input.GetMouseButtonDown(0)){//クリックした座標に移動する
             ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//スクリーンの座標からワールド座標へ変換する
@@ -65,6 +68,15 @@ public class Test : MonoBehaviour
     void Summon(){
         GameObject Slime = Instantiate(ShotObj) as GameObject;
         Slime.transform.position = new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z);
+    }
+
+    IEnumerator DelayMove(){
+        Debug.Log("Delay");
+        var tween = DOVirtual.DelayedCall(2f,
+        () => gameObject.SetActive(false));
+
+        //yield return new WaitForSeconds(3f);
+        //tween.Kill();
     }
 
     IEnumerator IDStart(){
