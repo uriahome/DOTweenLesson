@@ -18,14 +18,26 @@ public class ImageMove : MonoBehaviour
         .Join(RBikkuri.DOJumpAnchorPos(new Vector3(0,0,0),50f,1,1f))
         .SetLoops(-1,LoopType.Restart);//拡大と透過とジャンプを繰り返す*/
 
-        DOTween.Sequence().Append(Bikkuri.transform.DOScale(1.2f,1.0f))
+        /*DOTween.Sequence().Append(Bikkuri.transform.DOScale(1.2f,1.0f))
         .Join(RBikkuri.DOJumpAnchorPos(new Vector3(0,0,0),50f,1,1f))
-        .SetLoops(-1,LoopType.Restart);//拡大とジャンプを繰り返す
+        .SetLoops(-1,LoopType.Restart);//拡大とジャンプを繰り返す*/
+        
+        
+        DOTween.Sequence().Append(Bikkuri.transform.DOLocalRotate(new Vector3(0, 0, 40f), 1.0f,RotateMode.Fast))
+        .Append(Bikkuri.transform.DOLocalRotate(new Vector3(0, 0, -40f), 1.0f,RotateMode.Fast))
+        .OnComplete(Rotate);
+        //.SetLoops(-1,LoopType.Restart);        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void Rotate(){
+        DOTween.Sequence().Append(Bikkuri.transform.DOLocalRotate(new Vector3(0, 0, 40f), 1.0f,RotateMode.Fast))
+        .Append(Bikkuri.transform.DOLocalRotate(new Vector3(0, 0, -40f), 1.0f,RotateMode.Fast))
+        .OnComplete(Rotate);
     }
 }
