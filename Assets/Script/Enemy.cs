@@ -9,19 +9,24 @@ public class Enemy : MonoBehaviour
     [SerializeField] bool ChangeMoveFlag;
     [SerializeField] float SpanTime;
     [SerializeField] int MoveCount;
+
+    [SerializeField] Vector3 centerPos = Vector3.zero;
+    [SerializeField] Vector3 axisPos;
+    [SerializeField] float period = 2f;
+
     void Start()
     {
         MoveCount = 0;
         ChangeMoveFlag = false;
         SpanTime = 1.0f;
         //StartCoroutine("ChangeMove");
-        Move();
+        //Move();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CircleMove();
     }
 
     void Move(){
@@ -41,6 +46,19 @@ public class Enemy : MonoBehaviour
             .Append(transform.DOLocalMove(new Vector3(5,5,0),SpanTime))
             .OnComplete(Move);
         }
+    }
+
+    void CircleMove(){
+        var angleAxis = Quaternion.AngleAxis(360/period*Time.deltaTime,axisPos);
+
+        var pos = transform.position;
+
+        pos -= centerPos;
+        pos = angleAxis * pos;
+        pos += centerPos;
+
+        this.transform.position = pos;
+
     }
 
     IEnumerator ChangeMove(){
