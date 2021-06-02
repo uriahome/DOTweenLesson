@@ -13,20 +13,23 @@ public class Enemy : MonoBehaviour
     [SerializeField] Vector3 centerPos = Vector3.zero;
     [SerializeField] Vector3 axisPos;
     [SerializeField] float period = 2f;
+    [SerializeField] Rigidbody2D rigidbody2D;
 
     void Start()
     {
         MoveCount = 0;
         ChangeMoveFlag = false;
         SpanTime = 1.0f;
+        rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         //StartCoroutine("ChangeMove");
         //Move();
+        RigidMove();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CircleMove();
+        //CircleMove();
     }
 
     void Move(){
@@ -45,6 +48,25 @@ public class Enemy : MonoBehaviour
             .Append(transform.DOLocalMove(new Vector3(5,-5,0),SpanTime))
             .Append(transform.DOLocalMove(new Vector3(5,5,0),SpanTime))
             .OnComplete(Move);
+        }
+    }
+
+    void RigidMove(){
+        MoveCount++;
+        if(MoveCount%3 ==2){
+            ChangeMoveFlag = !ChangeMoveFlag;
+        }
+        Debug.Log("Move!!");
+        if(ChangeMoveFlag){
+            DOTween.Sequence().Append(rigidbody2D.DOMove(new Vector3(5,-5,0),SpanTime))
+            .Append(rigidbody2D.DOMove(new Vector3(8,0,0),SpanTime))
+            .Append(rigidbody2D.DOMove(new Vector3(5,5,0),SpanTime))
+            .OnComplete(RigidMove);
+        }else{
+            DOTween.Sequence().Append(rigidbody2D.DOMove(new Vector3(8,0,0),SpanTime))
+            .Append(rigidbody2D.DOMove(new Vector3(5,-5,0),SpanTime))
+            .Append(rigidbody2D.DOMove(new Vector3(5,5,0),SpanTime))
+            .OnComplete(RigidMove);
         }
     }
 
