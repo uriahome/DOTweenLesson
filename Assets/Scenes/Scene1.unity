@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1170074766}
-  possibleTile: {fileID: 11400000, guid: ffec3794a1ac3cd46b20bcb745bdf7fe, type: 2}
+  possibleTile: {fileID: 11400000, guid: 143415a02bc7f7047806aad00b3e459f, type: 2}
   grid: {fileID: 803526191}
   camera: {fileID: 1266663048}
 --- !u!4 &1090498168
