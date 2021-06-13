@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;//Actionを使うため
 using UnityEngine;
 using DG.Tweening;//DOTweenを使用するため
 
@@ -67,24 +68,46 @@ public class Test : MonoBehaviour
 
     }
 
+
+//https://kan-kikuchi.hatenablog.com/entry/Delegate
+//delegate処理の参考
     public class Test1{
         public void Method(){
             Test2 test2 = new Test2();
 
-            Test2.Delegate delegateMethod = CallBack;
-            test2.Method(delegateMethod);
+            /*Test2.Delegate delegateMethod = CallBack;//Callback関数を渡している
+            delegateMethod += CallBack2;
+            delegateMethod += CallBack3;
+            test2.Method(delegateMethod);*/
+
+            test2.CallBack += () => Debug.Log("処理終了");
+            test2.Method();
         }
 
+        //Action delegateMethod = () => Debug.Log("処理終了");
         public void CallBack(){
             Debug.Log("CallBack処理終了");
         }
+        public void CallBack2(){
+            Debug.Log("CallBack2終了");
+        }
+        public void CallBack3(){
+            Debug.Log("CallBack3終了");
+        }
     }
     public class Test2{
-        public delegate void Delegate();
-        public void Method(Delegate delegateMethod){
+        //public delegate void Delegate();
+        public event Action CallBack = null;
+       /* public void Method(Delegate delegateMethod){//渡された関数を実行する
             Debug.Log("Method");
 
             delegateMethod();
+        }*/
+        public void Method(){
+            Debug.Log("Method");
+            if(CallBack != null){
+                CallBack();
+            }
         }
     }
 
