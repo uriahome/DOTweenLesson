@@ -24,6 +24,8 @@ public class Test : MonoBehaviour
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetEase(Ease.InOutQuart).SetLoops(10,LoopType.Incremental);//10回繰り返す(その場で続きを開始する(加算する))
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetEase(Ease.InOutQuart).SetLoops(-1,LoopType.Yoyo);//-1で無限に繰り返す
         //transform.DOLocalMove(new Vector3(10,0,0),1f).OnComplete(CompleteFunction);//トゥイーン完了時にCompleteFunction()を呼び出す
+        Test1 test1 = new Test1();
+        test1.Method();
     }
 
     // Update is called once per frame
@@ -63,6 +65,27 @@ public class Test : MonoBehaviour
             tweener.Play();
         }
 
+    }
+
+    public class Test1{
+        public void Method(){
+            Test2 test2 = new Test2();
+
+            Test2.Delegate delegateMethod = CallBack;
+            test2.Method(delegateMethod);
+        }
+
+        public void CallBack(){
+            Debug.Log("CallBack処理終了");
+        }
+    }
+    public class Test2{
+        public delegate void Delegate();
+        public void Method(Delegate delegateMethod){
+            Debug.Log("Method");
+
+            delegateMethod();
+        }
     }
 
     void Summon(){
