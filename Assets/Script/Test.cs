@@ -27,12 +27,26 @@ public class Test : MonoBehaviour
         //transform.DOLocalMove(new Vector3(10,0,0),1f).OnComplete(CompleteFunction);//トゥイーン完了時にCompleteFunction()を呼び出す
         Test1 test1 = new Test1();
         test1.Method();
+
+        //https://kan-kikuchi.hatenablog.com/entry/List_Lambda
+        var list = new List<string> {
+            "a", "aa", "aaa", "aaaa",
+            "b", "bb", "bbb", "bbbb",
+            "c", "cc", "ccc", "cccc"
+            };
+
+        //4文字以上の文字列はあるか
+        var exists4Length = list.Exists(s => s.Length >= 4); //4文字以上の文字列があるのでTrue
+        Debug.Log(exists4Length);
+        var exists5Length = list.Exists(s => s.Length >= 5); //5文字以上の文字列があるのでfalse
+        Debug.Log(exists5Length);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             Debug.Log("Space!!");
             //StartCoroutine("StartMove");
             //StartCoroutine("Rewind");
@@ -50,29 +64,36 @@ public class Test : MonoBehaviour
             //StartCoroutine("IDStart");
             Summon();
         }
-        if(Input.GetKeyDown(KeyCode.Z)){
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
             StartCoroutine("DelayMove");
         }
 
-        if(Input.GetMouseButtonDown(0)){//クリックした座標に移動する
+        if (Input.GetMouseButtonDown(0))
+        {//クリックした座標に移動する
             ClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);//スクリーンの座標からワールド座標へ変換する
             ClickPos.z = 0;//z座標を0にする(カメラは―10なので)
-            tweener = transform.DOLocalMove(ClickPos,1f);
+            tweener = transform.DOLocalMove(ClickPos, 1f);
         }
-        if(Input.GetKeyDown(KeyCode.A)){
+        if (Input.GetKeyDown(KeyCode.A))
+        {
             tweener.Pause();
         }
-        if(Input.GetKeyDown(KeyCode.Z)){
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
             tweener.Play();
         }
 
     }
 
-
-//https://kan-kikuchi.hatenablog.com/entry/Delegate
-//delegate処理の参考
-    public class Test1{
-        public void Method(){
+    //https://kan-kikuchi.hatenablog.com/entry/Delegate
+    //delegate処理の参考
+    //https://kan-kikuchi.hatenablog.com/entry/FirstLINQ
+    //こっちもいつか試す
+    public class Test1
+    {
+        public void Method()
+        {
             Test2 test2 = new Test2();
 
             /*Test2.Delegate delegateMethod = CallBack;//Callback関数を渡している
@@ -85,38 +106,47 @@ public class Test : MonoBehaviour
         }
 
         //Action delegateMethod = () => Debug.Log("処理終了");
-        public void CallBack(){
+        public void CallBack()
+        {
             Debug.Log("CallBack処理終了");
         }
-        public void CallBack2(){
+        public void CallBack2()
+        {
             Debug.Log("CallBack2終了");
         }
-        public void CallBack3(){
+        public void CallBack3()
+        {
             Debug.Log("CallBack3終了");
         }
     }
-    public class Test2{
+    public class Test2
+    {
         //public delegate void Delegate();
         public event Action CallBack = null;
-       /* public void Method(Delegate delegateMethod){//渡された関数を実行する
-            Debug.Log("Method");
+        /* public void Method(Delegate delegateMethod){//渡された関数を実行する
+             Debug.Log("Method");
 
-            delegateMethod();
-        }*/
-        public void Method(){
+             delegateMethod();
+         }*/
+        public void Method()
+        {
             Debug.Log("Method");
-            if(CallBack != null){
+            if (CallBack != null)
+            {
                 CallBack();
             }
         }
     }
 
-    void Summon(){
+
+    void Summon()
+    {
         GameObject Slime = Instantiate(ShotObj) as GameObject;
-        Slime.transform.position = new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z);
+        Slime.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
     }
 
-    IEnumerator DelayMove(){
+    IEnumerator DelayMove()
+    {
         Debug.Log("Delay");
         var tween = DOVirtual.DelayedCall(2f,
         () => gameObject.SetActive(false));
@@ -125,30 +155,33 @@ public class Test : MonoBehaviour
         //tween.Kill();
     }
 
-    IEnumerator IDStart(){
-        transform.DOLocalMoveX(10f,10f);
-        var tween1 = transform.DOScale(5f,3f);
+    IEnumerator IDStart()
+    {
+        transform.DOLocalMoveX(10f, 10f);
+        var tween1 = transform.DOScale(5f, 3f);
         var tween2 = transform.DOLocalRotateQuaternion(
             Quaternion.AngleAxis(540, Vector3.up), 0.5f)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Incremental);
         yield return new WaitForSeconds(1f);
-        
+
         tween1.Kill();
         yield return new WaitForSeconds(1f);
         tween2.Kill();
     }
 
-    public void RoundTrip_Right(){
-        transform.DOLocalMove(new Vector3(10f,0,0),1f).OnComplete(RoundTrip_Left);
+    public void RoundTrip_Right()
+    {
+        transform.DOLocalMove(new Vector3(10f, 0, 0), 1f).OnComplete(RoundTrip_Left);
 
     }
-    public void RoundTrip_Left(){
-        transform.DOLocalMove(new Vector3(-10f,0,0),1f).OnComplete(RoundTrip_Right);
+    public void RoundTrip_Left()
+    {
+        transform.DOLocalMove(new Vector3(-10f, 0, 0), 1f).OnComplete(RoundTrip_Right);
     }
     IEnumerator CustomMove()
     {
-        transform.DOLocalMove(new Vector3(10f,0,0),2f).SetEase(CustomEasing);
+        transform.DOLocalMove(new Vector3(10f, 0, 0), 2f).SetEase(CustomEasing);
         yield return null;
     }
 
@@ -163,28 +196,28 @@ public class Test : MonoBehaviour
 
     IEnumerator Move()
     {
-        transform.DOLocalMove(new Vector3(10f,0,0),1f).From(new Vector3(0f,0,0)).SetDelay(0.1f);//Fromで開始地点を設定することができる//setdelayは待機時間
+        transform.DOLocalMove(new Vector3(10f, 0, 0), 1f).From(new Vector3(0f, 0, 0)).SetDelay(0.1f);//Fromで開始地点を設定することができる//setdelayは待機時間
         yield return null;
     }
 
     IEnumerator Jump()
     {
         //transform.DOLocalJump(new Vector3(10f,0,0),1f,3,1f).SetEase(Ease.Linear);
-        transform.DOLocalJump(new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z),2f,3,1f).SetEase(Ease.Linear);//その場で3回跳ねる
+        transform.DOLocalJump(new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), 2f, 3, 1f).SetEase(Ease.Linear);//その場で3回跳ねる
         yield return null;
     }
 
     IEnumerator Back()
     {
-        yield return transform.DOLocalMove(new Vector3(10f,0,0),1.5f).WaitForCompletion();
+        yield return transform.DOLocalMove(new Vector3(10f, 0, 0), 1.5f).WaitForCompletion();
 
-        yield return transform.DOLocalMove(new Vector3(0f,0,0),1.5f).WaitForCompletion();
+        yield return transform.DOLocalMove(new Vector3(0f, 0, 0), 1.5f).WaitForCompletion();
 
-        DOTween.Sequence().Append(transform.DOLocalMoveX(10f,1f))
-        .Append(transform.DOLocalMoveY(1f,1f))
-        .Append(transform.DOLocalMoveX(5f,1f))
-        .Append(transform.DOScale(3.5f,0.3f))
-        .Insert(0.1f,transform.DOScale(1f,2f));
+        DOTween.Sequence().Append(transform.DOLocalMoveX(10f, 1f))
+        .Append(transform.DOLocalMoveY(1f, 1f))
+        .Append(transform.DOLocalMoveX(5f, 1f))
+        .Append(transform.DOScale(3.5f, 0.3f))
+        .Insert(0.1f, transform.DOScale(1f, 2f));
     }
 
     IEnumerator DOPathMove()
@@ -196,12 +229,13 @@ public class Test : MonoBehaviour
                  new Vector3(3f,-2f,0f),
                  new Vector3(0f,5f,0f),
              },
-             3f,PathType.CatmullRom).SetOptions(true);//SetOptions(true)とすることで開始した座標に戻る
+             3f, PathType.CatmullRom).SetOptions(true);//SetOptions(true)とすることで開始した座標に戻る
 
         yield return null;
     }
 
-    IEnumerator StartMove(){
+    IEnumerator StartMove()
+    {
         //transform.DOLocalMove(new Vector3(10f,0,0),1f).SetLoops(-1,LoopType.Yoyo);
         /*yield return new WaitForSeconds(0.5f);
 
@@ -210,7 +244,7 @@ public class Test : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         transform.DOPlay();//再開*/
-        transform.DOLocalMove(new Vector3(10f,0,0),1f).SetDelay(0.5f);
+        transform.DOLocalMove(new Vector3(10f, 0, 0), 1f).SetDelay(0.5f);
         yield return new WaitForSeconds(1f);
         transform.DORestart();//最初からやり直す
         //完了したトゥイーンはやり直せないため、この例だと1回のみやり直す
@@ -220,28 +254,31 @@ public class Test : MonoBehaviour
     IEnumerator PunchMove()
     {
         //移動場所/時間/振動数/振動する範囲
-        transform.DOPunchPosition(new Vector3(5f,0,0),2f,5,1f);
-        transform.DOPunchScale(Vector3.one*2f,2f,5,1f);
+        transform.DOPunchPosition(new Vector3(5f, 0, 0), 2f, 5, 1f);
+        transform.DOPunchScale(Vector3.one * 2f, 2f, 5, 1f);
         yield return null;
     }
 
-    IEnumerator StartMove2(){
-        transform.DOLocalMoveX(10f,4f);
+    IEnumerator StartMove2()
+    {
+        transform.DOLocalMoveX(10f, 4f);
         yield return new WaitForSeconds(1);
         transform.DOComplete();//即完了状態にする
     }
 
-    IEnumerator RelativeMove(){
-        transform.DOLocalMove(new Vector3(1,1,0),1f).SetRelative(true);//相対座標で指定して移動する
+    IEnumerator RelativeMove()
+    {
+        transform.DOLocalMove(new Vector3(1, 1, 0), 1f).SetRelative(true);//相対座標で指定して移動する
         yield return null;
     }
 
-    IEnumerator Rewind(){
-        transform.DOLocalMoveX(10f,1f);
+    IEnumerator Rewind()
+    {
+        transform.DOLocalMoveX(10f, 1f);
         yield return new WaitForSeconds(0.5f);
 
         transform.DORewind();//最初の状態に戻ってからポーズする
-        
+
         yield return new WaitForSeconds(0.5f);
 
         transform.DOPlay();//再開する
@@ -251,14 +288,15 @@ public class Test : MonoBehaviour
     IEnumerator SequenceMove()
     {//一つのグループにまとめて順番に処理する
         DOTween.Sequence()
-        .Append(transform.DOLocalMoveX(10f,1f))
-        .Append(transform.DOLocalMoveY(1f,1f))
-        .Append(transform.DOLocalMoveX(5f,1f))
-        .Append(transform.DOLocalMoveY(3.5f,0.3f));
+        .Append(transform.DOLocalMoveX(10f, 1f))
+        .Append(transform.DOLocalMoveY(1f, 1f))
+        .Append(transform.DOLocalMoveX(5f, 1f))
+        .Append(transform.DOLocalMoveY(3.5f, 0.3f));
 
         yield return null;
     }
-    private void CompleteFunction(){
+    private void CompleteFunction()
+    {
         Debug.Log("Complete!!!!");
     }
 }
