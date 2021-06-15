@@ -40,6 +40,15 @@ public class Test : MonoBehaviour
         Debug.Log(exists4Length);
         var exists5Length = list.Exists(s => s.Length >= 5); //5文字以上の文字列があるのでfalse
         Debug.Log(exists5Length);
+        //2文字の文字列を全て取得
+        List<string> twoLengthTextList = list.FindAll(s => s.Length == 2); //aaとbbとccが入ったListを取得
+        Debug.Log(twoLengthTextList);
+        List<string> threeLengthTextList = list.FindAll(s => s.Length >= 3);//3文字以上の文字列取得
+        Debug.Log(threeLengthTextList);
+        for(int i=0;i<threeLengthTextList.Count;i++){
+            Debug.Log(threeLengthTextList[i]);
+        }
+
     }
 
     // Update is called once per frame
