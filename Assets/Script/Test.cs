@@ -13,6 +13,14 @@ public class Test : MonoBehaviour
     [SerializeField] private Vector3 ClickPos;
 
     Tweener tweener;//DOTweenの情報を入れる
+
+    public enum StatusType{
+        HP = 0,Atk,Def,Spd
+    }//列挙型enum
+
+    public static int GetTypeNum<T>(){
+        return Enum.GetValues(typeof(T)).Length;//列挙型の項目数を取得する
+    }
     void Start()
     {
         //Debug.Log("test");
@@ -48,6 +56,8 @@ public class Test : MonoBehaviour
         for(int i=0;i<threeLengthTextList.Count;i++){
             Debug.Log(threeLengthTextList[i]);
         }
+
+        Debug.Log(Test.GetTypeNum<Test.StatusType>());//指定の仕方が特殊
 
     }
 
