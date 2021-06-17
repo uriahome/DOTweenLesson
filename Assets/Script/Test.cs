@@ -14,11 +14,13 @@ public class Test : MonoBehaviour
 
     Tweener tweener;//DOTweenの情報を入れる
 
-    public enum StatusType{
-        HP = 0,Atk,Def,Spd
+    public enum StatusType
+    {
+        HP = 0, Atk, Def, Spd
     }//列挙型enum
 
-    public static int GetTypeNum<T>(){
+    public static int GetTypeNum<T>()
+    {
         return Enum.GetValues(typeof(T)).Length;//列挙型の項目数を取得する
     }
     void Start()
@@ -53,12 +55,31 @@ public class Test : MonoBehaviour
         Debug.Log(twoLengthTextList);
         List<string> threeLengthTextList = list.FindAll(s => s.Length >= 3);//3文字以上の文字列取得
         Debug.Log(threeLengthTextList);
-        for(int i=0;i<threeLengthTextList.Count;i++){
+        for (int i = 0; i < threeLengthTextList.Count; i++)
+        {
             Debug.Log(threeLengthTextList[i]);
         }
 
         Debug.Log(Test.GetTypeNum<Test.StatusType>());//指定の仕方が特殊
 
+        //リストを作成
+        List<int> numlist = new List<int>() { 1, 2, 3 };
+
+        //中身を列挙
+        foreach (int num in numlist)
+        {
+            print(num);
+        }
+
+        //反転
+        print("反転");
+        numlist.Reverse();
+
+        //反転した中身を列挙
+        foreach (int num in numlist)
+        {
+            print(num);
+        }
     }
 
     // Update is called once per frame
